@@ -5,13 +5,12 @@ module.exports = class Streamiun extends Plugin {
   
   async startPlugin() {
     // this shouldnt work but it does
-    this.getCurrentUser = getModule(["getCurrentUser"], false).getCurrentUser;
-    setTimeout(() => {
-      this.getCurrentUser().premiumType = 2;
-    }, 10000);
-  }
+    const user = this.getModule([ 'getCurrentUser' ], false);
 
-  pluginWillUnload() {
+    this.inject(user, 'getCurrentUser', (_, res) => {
+      const newRes = Object.create(res);
+      newRes.premiumType = 2;
+      return newRes;
   }
 
 };
