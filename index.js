@@ -1,5 +1,6 @@
 const { Plugin } = require('powercord/entities');
 const { getModule } = require('powercord/webpack');
+const { inject, uninject } = require('powercord/injector');
 
 module.exports = class Streamiun extends Plugin {
   
