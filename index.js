@@ -1,17 +1,16 @@
 const { Plugin } = require('powercord/entities');
 const { getModule } = require('powercord/webpack');
-const { inject, uninject } = require('powercord/injector');
-
+console.log("Streamium Loading");
 module.exports = class Streamiun extends Plugin {
-  
   async startPlugin() {
+    console.log("Streamium Starting");
     // this shouldnt work but it does
-    const user = this.getModule([ 'getCurrentUser' ], false);
-
-    this.inject(user, 'getCurrentUser', (_, res) => {
-      const newRes = Object.create(res);
-      newRes.premiumType = 2;
-      return newRes;
+    this.getCurrentUser = getModule(["getCurrentUser"], false).getCurrentUser;
+    setTimeout(() => {
+      console.log("Streamium Executed");
+      this.getCurrentUser().premiumType = 2;
+    }, 10000);
   }
-
+  pluginWillUnload() {
+  }
 };
